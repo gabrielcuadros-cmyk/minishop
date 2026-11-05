@@ -33,4 +33,9 @@ public class ProductController {
     public ResponseEntity<Product> findById(@PathVariable Long id) {
         return ResponseEntity.ok(productService.findById(id));
     }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<String> handleError(RuntimeException ex) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
+    }
 }
